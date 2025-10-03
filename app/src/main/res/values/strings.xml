@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Project Group 7</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="categories">Categories</string>
+    <string name="new_at_the_library">New at the Library</string>
+    <string name="explore_all">Explore All</string>
+    <string name="romance">Romance</string>
+    <string name="horror">Horror</string>
+    <string name="comedy">Comedy</string>
+    <string name="fiction">Fiction</string>
+    <string name="search_hint">Search book…</string>
 </resources>
