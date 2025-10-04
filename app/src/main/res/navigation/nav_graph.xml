@@ -7,7 +7,13 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.projectgroup7.HomeFragment"
-        android:label="Home"/>
+        android:label="Home">
+
+        <!-- tambahkan action ini di dalam fragment home -->
+        <action
+            android:id="@+id/action_homeFragment_to_bookDetailFragment"
+            app:destination="@id/bookDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/borrowedFragment"
@@ -15,12 +21,18 @@
         android:label="Borrowed"/>
 
     <fragment
-        android:id="@+id/detailFragment"
-        android:name="com.example.projectgroup7.DetailFragment"
-        android:label="Detail"/>
+        android:id="@+id/searchFragment"
+        android:name="com.example.projectgroup7.SearchFragment"
+        android:label="Search"/>
 
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.projectgroup7.ProfileFragment"
         android:label="Profile"/>
+
+    <fragment
+        android:id="@+id/bookDetailFragment"
+        android:name="com.example.projectgroup7.BookDetailFragment"
+        android:label="Book Detail" />
+
 </navigation>

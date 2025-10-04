@@ -9,4 +9,5 @@
     <string name="comedy">Comedy</string>
     <string name="fiction">Fiction</string>
     <string name="search_hint">Search book…</string>
+    <string name="back_button">Back</string>
 </resources>
