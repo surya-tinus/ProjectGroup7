@@ -1,27 +1,42 @@
 package com.example.projectgroup7
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.navigation.fragment.NavHostFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main) // pastiin layout ini yang dipake
 
-        // Ambil NavHostFragment manual
+        // ambil navHostFragment dengan aman
         val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
+            .findFragmentById(R.id.nav_host_fragment)
 
-        // Setup bottom navigation
+        val navController = navHostFragment?.findNavController()
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        bottomNav.setupWithNavController(navController)
+
+        if (navController != null) {
+            bottomNav.setupWithNavController(navController)
+
+            // biar pas klik home dari fragment lain -> balik ke HomeFragment
+            bottomNav.setOnItemSelectedListener { item ->
+                when (item.itemId) {
+                    R.id.homeFragment -> {
+                        navController.popBackStack(R.id.homeFragment, false)
+                        true
+                    }
+                    else -> {
+                        navController.navigate(item.itemId)
+                        true
+                    }
+                }
+            }
+        } else {
+            throw IllegalStateException("NavController tidak ditemukan di nav_host_fragment!")
+        }
     }
 }

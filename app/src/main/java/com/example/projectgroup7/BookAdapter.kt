@@ -10,12 +10,14 @@ import com.bumptech.glide.Glide
 import com.example.projectgroup7.R
 import com.example.projectgroup7.Book
 
-class BookAdapter(private val books: List<Book>) :
-    RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
+class BookAdapter(
+    private val bookList: List<Book>,
+    private val onItemClick: (Book) -> Unit
+) : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
-    class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val title: TextView = itemView.findViewById(R.id.tv_book_title)
-        val cover: ImageView = itemView.findViewById(R.id.iv_book_cover)
+    inner class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val imageView = itemView.findViewById<ImageView>(R.id.iv_book_cover)
+        val titleView = itemView.findViewById<TextView>(R.id.tv_book_title)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
@@ -25,13 +27,14 @@ class BookAdapter(private val books: List<Book>) :
     }
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        val book = books[position]
-        holder.title.text = book.title
+        val book = bookList[position]
+        holder.titleView.text = book.title
+        Glide.with(holder.itemView.context).load(book.imageUrl).into(holder.imageView)
 
-        Glide.with(holder.itemView.context)
-            .load(book.coverUrl)
-            .into(holder.cover)
+        holder.itemView.setOnClickListener {
+            onItemClick(book)
+        }
     }
 
-    override fun getItemCount(): Int = books.size
+    override fun getItemCount() = bookList.size
 }
